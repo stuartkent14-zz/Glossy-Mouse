@@ -26,14 +26,22 @@ $.gloss = function (options){
      */
     function _css(){
         // Preparing CSS for selector elements
+        var width;
+        var height;
         $(settings.selector).css({'position':'relative','overflow':'hidden'})
-            /* creating DIV element to make the gloss animation */
-            .append('<div class="glosser"></div>').find("img").css({'position':'absolute','top':0,'left':0, 'z-index':5, });
+          /* creating DIV element to make the gloss animation */
+          .append('<div class="glosser"></div>');
+          width  = 500*truncate($(settings.selector).width()/500);
+          height  = 500*truncate($(settings.selector).height()/500);
         // preparing CSS for gloss div
-        $(".glosser").css({'position':'absolute','left':'-450px','top':0,'z-index':10,'opacity':1,'width':'450px','height':'500px','background':'url('+settings.image+') 0 0 repeat'});
+        $(".glosser").css({'position':'absolute','left':'-450px','top':0,'z-index':10,'height':height, 'width':width,'opacity':1,'background':'url('+settings.image+') 0 0 repeat'});
         _ie6fix();
     }
     
+    function truncate(_value)    {
+      if (_value<0) return Math.ceil(_value);
+      else return Math.floor(_value);
+    }
     /**
      * Add hover, onClick actions on the element to make it gloss.
      */
